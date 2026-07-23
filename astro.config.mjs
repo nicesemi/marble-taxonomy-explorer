@@ -8,6 +8,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://ashutoshsinghpr7.github.io',
-  base: '/marble-taxonomy-explorer/',
+  base: '/',
 });
