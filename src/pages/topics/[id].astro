@@ -27,7 +27,7 @@ const standards = getStandardsForTopic(topic);
 
 <Base title={topic.name}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <a href={base} class="text-sm text-marble-500 hover:text-marble-600 mb-4 inline-block">&larr; Home</a>
+    <a href={base} class="text-sm text-marble-500 hover:text-marble-600 mb-4 inline-block">&larr; 首页</a>
 
     <!-- Header -->
     <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
@@ -45,7 +45,7 @@ const standards = getStandardsForTopic(topic);
         <span class="text-gray-400">&rsaquo;</span>
         <span class="text-gray-600">{topic.domain}</span>
         <span class="text-gray-300">|</span>
-        <span class="text-gray-500">Ages {topic.ageRangeStart}—{topic.ageRangeEnd}</span>
+        <span class="text-gray-500">年龄段 {topic.ageRangeStart}—{topic.ageRangeEnd}</span>
         <span class="text-gray-300">|</span>
         <span class="text-gray-400 text-xs">ID: {topic.id}</span>
       </div>
@@ -58,7 +58,7 @@ const standards = getStandardsForTopic(topic);
       <div class="lg:col-span-2 space-y-6">
         <!-- Evidence -->
         <div class="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 class="text-lg font-semibold text-gray-900 mb-3">Mastery Evidence</h2>
+          <h2 class="text-lg font-semibold text-gray-900 mb-3">掌握证据 (Mastery Evidence)</h2>
           <ul class="space-y-2">
             {topic.evidence.map((e) => (
               <li class="flex items-start gap-2 text-sm text-gray-700">
@@ -74,8 +74,8 @@ const standards = getStandardsForTopic(topic);
         <!-- Assessment prompt -->
         {topic.assessmentPrompt && (
           <div class="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 class="text-lg font-semibold text-gray-900 mb-3">Assessment Prompt</h2>
-            <p class="text-sm text-gray-600 italic">&ldquo;{topic.assessmentPrompt.replace(/\{\{name\}\}/g, '[child]')}&rdquo;</p>
+            <h2 class="text-lg font-semibold text-gray-900 mb-3">评估提示 (Assessment Prompt)</h2>
+            <p class="text-sm text-gray-600 italic">&ldquo;{topic.assessmentPrompt.replace(/\{\{name\}\}/g, '[孩子]')}&rdquo;</p>
           </div>
         )}
 
@@ -83,8 +83,8 @@ const standards = getStandardsForTopic(topic);
         {standards.length > 0 && (
           <div class="bg-white rounded-lg border border-gray-200 p-6">
             <h2 class="text-lg font-semibold text-gray-900 mb-3">
-              Curriculum Standards
-              <span class="text-sm font-normal text-gray-500 ml-2">{standards.length} alignment{standards.length !== 1 ? 's' : ''}</span>
+              课程标准 (Curriculum Standards)
+              <span class="text-sm font-normal text-gray-500 ml-2">{standards.length} 个对标条目</span>
             </h2>
             <div class="space-y-3">
               {standards.map(({ curriculum, standard }) => (
@@ -93,7 +93,7 @@ const standards = getStandardsForTopic(topic);
                     <code class="text-xs font-mono bg-gray-200 px-1.5 py-0.5 rounded text-gray-700">{standard.code}</code>
                     <span class="text-xs text-gray-400">{curriculum.name.split(':')[0]}</span>
                     {!curriculum.textIncluded && (
-                      <span class="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">codes only</span>
+                      <span class="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">仅编码</span>
                     )}
                   </div>
                   {standard.data ? (
@@ -108,7 +108,7 @@ const standards = getStandardsForTopic(topic);
                       </div>
                     </>
                   ) : (
-                    <div class="text-sm text-gray-500">Standard code — full text not included in this dataset.</div>
+                    <div class="text-sm text-gray-500">仅含标准编码，完整文本未收录于当前数据集。</div>
                   )}
                 </div>
               ))}
@@ -122,7 +122,7 @@ const standards = getStandardsForTopic(topic);
         <!-- Prerequisites -->
         <div class="bg-white rounded-lg border border-gray-200 p-6">
           <h2 class="text-lg font-semibold text-gray-900 mb-3">
-            Prerequisites
+            前置知识 (Prerequisites)
             <span class="text-sm font-normal text-gray-500 ml-2">{prereqs.length}</span>
           </h2>
           {prereqs.length > 0 ? (
@@ -135,20 +135,20 @@ const standards = getStandardsForTopic(topic);
                   </a>
                   <div class="flex items-center gap-2 mt-0.5">
                     <span class={`text-xs dep-strength-${dependency.strength}`}>{dependency.strength}</span>
-                    <span class="text-xs text-gray-500">Ages {ptopic.ageRangeStart}—{ptopic.ageRangeEnd}</span>
+                    <span class="text-xs text-gray-500">年龄段 {ptopic.ageRangeStart}—{ptopic.ageRangeEnd}</span>
                   </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p class="text-sm text-gray-400">No prerequisites — this is a foundational topic.</p>
+            <p class="text-sm text-gray-400">无前置依赖 — 这是一个基础入门主题。</p>
           )}
 
           <!-- Full prereq chain -->
           {prereqChain.length > 0 && (
             <details class="mt-4">
               <summary class="text-sm text-marble-500 hover:text-marble-600 cursor-pointer font-medium">
-                Show full prerequisite tree
+                展开完整前置树
               </summary>
               <div class="mt-2">
                 <PrereqTree tree={prereqChain} depth={0} client:load />
@@ -160,7 +160,7 @@ const standards = getStandardsForTopic(topic);
         <!-- Unlocks -->
         <div class="bg-white rounded-lg border border-gray-200 p-6">
           <h2 class="text-lg font-semibold text-gray-900 mb-3">
-            Unlocks
+            可解锁主题 (Unlocks)
             <span class="text-sm font-normal text-gray-500 ml-2">{unlocks.length}</span>
           </h2>
           {unlocks.length > 0 ? (
@@ -173,13 +173,13 @@ const standards = getStandardsForTopic(topic);
                   </a>
                   <div class="flex items-center gap-2 mt-0.5">
                     <span class={`text-xs dep-strength-${dependency.strength}`}>{dependency.strength}</span>
-                    <span class="text-xs text-gray-500">Ages {utopic.ageRangeStart}—{utopic.ageRangeEnd}</span>
+                    <span class="text-xs text-gray-500">年龄段 {utopic.ageRangeStart}—{utopic.ageRangeEnd}</span>
                   </div>
                 </li>
               ))}
             </ul>
           ) : (
-            <p class="text-sm text-gray-400">No topics build on this one.</p>
+            <p class="text-sm text-gray-400">当前主题不构成其他主题的前置。</p>
           )}
         </div>
       </div>

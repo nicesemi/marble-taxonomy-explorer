@@ -210,7 +210,7 @@
       if (data && !showLabels) {
         hoveredEdge = {
           strength: 'topic',
-          reason: `${data.subject} · ${data.domain} · Ages ${data.ageStart}–${data.ageEnd}${data.prereqCount ? ` · ${data.prereqCount} prereqs` : ''}${data.unlockCount ? ` · ${data.unlockCount} unlocks` : ''}`,
+          reason: `${data.subject} · ${data.domain} · 年龄段 ${data.ageStart}–${data.ageEnd}${data.prereqCount ? ` · ${data.prereqCount} 个前置` : ''}${data.unlockCount ? ` · ${data.unlockCount} 个可解锁` : ''}`,
           source: node.id(),
           target: '',
           sourceLabel: data.label,
@@ -604,23 +604,23 @@
 <div class="flex flex-col h-screen">
   <!-- Toolbar -->
   <div class="border-b border-gray-200 bg-white px-4 py-2 flex flex-wrap items-center gap-2 shrink-0">
-    <a href={base} class="text-sm text-marble-500 hover:text-marble-600 font-medium shrink-0">&larr; Home</a>
+    <a href={base} class="text-sm text-marble-500 hover:text-marble-600 font-medium shrink-0">&larr; 首页</a>
     <span class="text-gray-300 shrink-0">|</span>
 
     <!-- Mode toggle -->
     <div class="flex items-center bg-gray-100 rounded-lg p-0.5 shrink-0">
       <button on:click={activateExploreMode} class="text-xs px-3 py-1 rounded-md font-medium transition-all {mode === 'explore' ? 'bg-white shadow-sm text-marble-700' : 'text-gray-500 hover:text-gray-700'}">
-        Explore
+        探索
       </button>
       <button on:click={activateFullMode} class="text-xs px-3 py-1 rounded-md font-medium transition-all {mode === 'full' ? 'bg-white shadow-sm text-marble-700' : 'text-gray-500 hover:text-gray-700'}">
-        Full Graph
+        全图
       </button>
     </div>
 
     <!-- Search -->
     <div class="relative flex-1 min-w-[180px] max-w-sm">
       <input type="text" bind:value={searchQuery} on:input={search}
-        placeholder={mode === 'explore' ? "Search a topic to explore its connections..." : "Search & focus on a topic..."}
+        placeholder={mode === 'explore' ? "搜索主题以探索其关联关系..." : "搜索并聚焦某个主题..."}
         class="w-full pl-8 pr-3 py-1.5 text-sm rounded border border-gray-300 focus:border-marble-400 focus:ring-1 focus:ring-marble-200 outline-none" />
       <svg class="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -630,7 +630,7 @@
           {#each searchResults as { node, score }}
             <button on:click={() => pickTopic(node.id)} class="block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-50 border-b border-gray-100 last:border-b-0">
               <div class="font-medium text-gray-800 truncate">{node.label}</div>
-              <div class="text-xs text-gray-500">{node.subject} · {node.domain} · Ages {node.ageStart}–{node.ageEnd}</div>
+              <div class="text-xs text-gray-500">{node.subject} · {node.domain} · 年龄段 {node.ageStart}–{node.ageEnd}</div>
             </button>
           {/each}
         </div>
@@ -640,16 +640,16 @@
     <!-- Full graph controls -->
     {#if mode === 'full'}
       <select bind:value={selectedLayout} class="text-sm border border-gray-300 rounded px-2 py-1.5 bg-white shrink-0">
-        <option value="cose">Force-Directed</option>
-        <option value="concentric">Concentric</option>
-        <option value="grid">Grid</option>
+        <option value="cose">力导向布局</option>
+        <option value="concentric">同心圆布局</option>
+        <option value="grid">网格布局</option>
       </select>
 
       <!-- Path finder (searchable) -->
       <div class="flex items-center gap-1 shrink-0">
         <div class="relative">
           <input type="text" bind:value={pathFromQuery} on:input={searchPathFrom}
-            placeholder="From topic..." class="w-28 text-xs border border-gray-300 rounded px-2 py-1.5" />
+            placeholder="起始主题..." class="w-28 text-xs border border-gray-300 rounded px-2 py-1.5" />
           {#if pathFromResults.length > 0}
             <div class="absolute top-full left-0 mt-1 bg-white rounded shadow-lg border border-gray-200 max-h-48 overflow-y-auto z-50 min-w-[200px]">
               {#each pathFromResults as node}
@@ -664,7 +664,7 @@
         <span class="text-gray-400 text-xs">&rarr;</span>
         <div class="relative">
           <input type="text" bind:value={pathToQuery} on:input={searchPathTo}
-            placeholder="To topic..." class="w-28 text-xs border border-gray-300 rounded px-2 py-1.5" />
+            placeholder="目标主题..." class="w-28 text-xs border border-gray-300 rounded px-2 py-1.5" />
           {#if pathToResults.length > 0}
             <div class="absolute top-full left-0 mt-1 bg-white rounded shadow-lg border border-gray-200 max-h-48 overflow-y-auto z-50 min-w-[200px]">
               {#each pathToResults as node}
@@ -676,13 +676,13 @@
             </div>
           {/if}
         </div>
-        <button on:click={findPath} class="text-xs bg-marble-500 text-white px-2 py-1.5 rounded hover:bg-marble-600">Path</button>
+        <button on:click={findPath} class="text-xs bg-marble-500 text-white px-2 py-1.5 rounded hover:bg-marble-600">路径</button>
       </div>
-      <button on:click={clearHighlights} class="text-xs text-gray-500 hover:text-gray-700 shrink-0">Clear</button>
+      <button on:click={clearHighlights} class="text-xs text-gray-500 hover:text-gray-700 shrink-0">清除</button>
 
       <label class="flex items-center gap-1 text-xs text-gray-500 cursor-pointer shrink-0 ml-1">
         <input type="checkbox" bind:checked={showLabels} class="w-3.5 h-3.5" />
-        Labels
+        标签
       </label>
 
       <!-- Subject toggles -->
@@ -710,7 +710,7 @@
     {/if}
 
     <span class="text-xs text-gray-400 ml-auto shrink-0">
-      {nodeCount.toLocaleString()} nodes · {edgeCount.toLocaleString()} edges
+      {nodeCount.toLocaleString()} 个节点 · {edgeCount.toLocaleString()} 条边
     </span>
   </div>
 
@@ -723,7 +723,7 @@
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
           </svg>
-          Computing layout...
+          计算布局中...
         </div>
       </div>
     {/if}
@@ -732,20 +732,20 @@
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div class="text-center bg-white/90 rounded-xl px-10 py-8 shadow-sm border border-gray-200">
           <div class="text-5xl mb-4">◆</div>
-          <h2 class="text-xl font-semibold text-gray-700 mb-2">Topic Neighborhood Explorer</h2>
+          <h2 class="text-xl font-semibold text-gray-700 mb-2">主题邻域浏览器</h2>
           <p class="text-gray-500 text-sm max-w-sm mx-auto">
-            Search for any topic above to see its prerequisite chain — up to 3 levels deep.
-            Prerequisites show what you must learn first, unlocks show what comes next.
+            在上方搜索任意主题，查看其前置依赖链 — 最多 3 层深度。
+            前置依赖展示必须先学的内容，可解锁展示后续可学的内容。
           </p>
-          <p class="text-gray-400 text-xs mt-4">Double-click any node to open the full topic detail in a new tab.</p>
+          <p class="text-gray-400 text-xs mt-4">双击任意节点在新标签页中打开完整主题详情。</p>
         </div>
       </div>
     {/if}
 
     {#if mode === 'full' && showAllWarning}
       <div class="absolute top-3 left-1/2 -translate-x-1/2 z-20 bg-amber-50 border border-amber-300 text-amber-800 text-xs px-4 py-2 rounded-lg shadow-sm">
-        Showing {nodeCount.toLocaleString()} nodes — labels hidden for performance.
-        <button on:click={() => showAllWarning = false} class="ml-2 underline font-medium">Dismiss</button>
+        当前显示 {nodeCount.toLocaleString()} 个节点 — 为性能考虑已隐藏标签。
+        <button on:click={() => showAllWarning = false} class="ml-2 underline font-medium">忽略</button>
       </div>
     {/if}
 
@@ -765,7 +765,7 @@
 
     {#if pathNodes.length > 0}
       <div class="absolute bottom-4 left-4 z-50 bg-white rounded shadow-lg border border-gray-200 px-3 py-2 text-xs max-w-md">
-        <div class="font-medium text-gray-800 mb-1">Path ({pathNodes.length} topics)</div>
+        <div class="font-medium text-gray-800 mb-1">路径 ({pathNodes.length} 个主题)</div>
         <div class="text-gray-500 truncate">
           {#each pathNodes as id, i}
             {i > 0 ? ' → ' : ''}<a href={`${base}topics/${id}`} class="text-marble-600 hover:underline">{nodeById.get(id)?.label?.slice(0, 20) ?? id.slice(0, 10)}</a>
@@ -776,9 +776,9 @@
 
     {#if mode === 'full' && nodeCount > 0}
       <div class="absolute top-3 right-3 z-50 bg-white/90 backdrop-blur rounded shadow-lg border border-gray-200 px-3 py-2 text-[10px] space-y-0.5">
-        <div class="font-medium text-gray-700 mb-1">Click a node to trace prerequisites</div>
-        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> Hard prereq</div>
-        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span> Soft prereq</div>
+        <div class="font-medium text-gray-700 mb-1">点击节点查看前置依赖</div>
+        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> 硬前置 (Hard)</div>
+        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span> 软前置 (Soft)</div>
       </div>
     {/if}
   </div>

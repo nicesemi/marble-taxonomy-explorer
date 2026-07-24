@@ -3,7 +3,7 @@
 
   const base = import.meta.env.BASE_URL;
   export let topics = [];
-  export let placeholder = 'Search 1,590 micro-topics...';
+  export let placeholder = '搜索 1,590 个微主题...';
 
   let query = '';
   let results = [];
@@ -101,7 +101,7 @@
     </div>
   {:else if query}
     <div class="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-      <div class="px-4 py-3 text-sm text-gray-500">No results found.</div>
+      <div class="px-4 py-3 text-sm text-gray-500">未找到相关结果。</div>
     </div>
   {/if}
 </div>

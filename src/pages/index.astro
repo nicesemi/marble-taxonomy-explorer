@@ -13,53 +13,53 @@ const subjectsWithCounts = SUBJECTS.map((s) => ({
   color: SUBJECT_COLORS[s],
 }));
 
-const formattedDate = new Date(manifest.generatedAt).toLocaleDateString('en-US', {
+const formattedDate = new Date(manifest.generatedAt).toLocaleDateString('zh-CN', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
 ---
 
-<Base title="Home">
+<Base title="首页">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Hero -->
     <div class="text-center mb-12">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-        Marble <span class="text-marble-600">Skill Taxonomy</span> Explorer
+        Marble <span class="text-marble-600">技能分类体系</span> 浏览器
       </h1>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        Browse and search 1,590 micro-topics across 8 subjects, connected by 3,221 prerequisite dependencies.
-        <span class="text-gray-400"> Version {manifest.taxonomyVersion} &middot; {formattedDate}</span>
+        浏览和搜索 1,590 个微主题，涵盖 8 个学科，通过 3,221 条前置依赖关系关联。
+        <span class="text-gray-400"> 版本 {manifest.taxonomyVersion} &middot; {formattedDate}</span>
       </p>
     </div>
 
     <!-- Search -->
     <div class="max-w-2xl mx-auto mb-12">
-      <Search topics={topics} placeholder="Search 1,590 micro-topics..." client:load />
+      <Search topics={topics} placeholder="搜索 1,590 个微主题..." client:load />
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
       <div class="text-center p-4 bg-white rounded-lg border border-gray-200">
         <div class="text-2xl font-bold text-marble-600">{manifest.counts.topics.toLocaleString()}</div>
-        <div class="text-sm text-gray-500">Micro-topics</div>
+        <div class="text-sm text-gray-500">微主题</div>
       </div>
       <div class="text-center p-4 bg-white rounded-lg border border-gray-200">
         <div class="text-2xl font-bold text-marble-600">{manifest.counts.dependencies.toLocaleString()}</div>
-        <div class="text-sm text-gray-500">Prerequisites</div>
+        <div class="text-sm text-gray-500">前置依赖</div>
       </div>
       <div class="text-center p-4 bg-white rounded-lg border border-gray-200">
         <div class="text-2xl font-bold text-marble-600">{SUBJECTS.length}</div>
-        <div class="text-sm text-gray-500">Subjects</div>
+        <div class="text-sm text-gray-500">学科</div>
       </div>
       <div class="text-center p-4 bg-white rounded-lg border border-gray-200">
         <div class="text-2xl font-bold text-marble-600">{manifest.counts.curriculumStandards.toLocaleString()}</div>
-        <div class="text-sm text-gray-500">Standards</div>
+        <div class="text-sm text-gray-500">课程标准条目</div>
       </div>
     </div>
 
     <!-- Subjects grid -->
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Browse by Subject</h2>
+    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">按学科浏览</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
       {subjectsWithCounts.map((s) => (
         <a
@@ -73,7 +73,7 @@ const formattedDate = new Date(manifest.generatedAt).toLocaleDateString('en-US',
             ></span>
             <h3 class="font-semibold text-gray-900 group-hover:text-marble-600 transition-colors">{s.name}</h3>
           </div>
-          <p class="text-sm text-gray-500">{s.count} micro-topics</p>
+          <p class="text-sm text-gray-500">{s.count} 个微主题</p>
         </a>
       ))}
     </div>
@@ -84,7 +84,7 @@ const formattedDate = new Date(manifest.generatedAt).toLocaleDateString('en-US',
         href={`${base}curriculum`}
         class="inline-flex items-center gap-2 text-marble-600 hover:text-marble-700 font-medium transition-colors"
       >
-        Browse by curriculum standard &rarr;
+        按课程标准浏览 &rarr;
       </a>
     </div>
   </div>
